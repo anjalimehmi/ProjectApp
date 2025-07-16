@@ -125,7 +125,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/already"
         android:layout_centerHorizontal="true"
-        android:background="__"
+        android:backgroundTint="#C8DBB3"
         android:text="Login here"
         android:textColor="#F2140C"
         android:textStyle="bold"

@@ -62,11 +62,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="0dp"
-       android:background="173A18"
+       android:backgroundTint="#173A18"
         android:gravity="right"
         android:fontFamily="sans-serif-condensed"
         android:text="Let's start>>"
-        android:textColor="#173A18"
+        android:textColor="#C8DBB3"
         android:textSize="40dp"
         android:textStyle="bold" />
 
