@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
 import com.o7.projectapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +39,8 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
+
+    
 
     companion object {
         /**

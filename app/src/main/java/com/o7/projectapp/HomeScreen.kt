@@ -1,90 +1,51 @@
 package com.o7.projectapp
 
-import android.app.Dialog
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.o7.projectapp.databinding.ActivityHomeScreenBinding
 
-class HomeScreen : AppCompatActivity(), HCadapter.OnClick {
-    lateinit var binding: ActivityHomeScreenBinding
+class HomeScreen :AppCompatActivity() {
+    lateinit var navController: NavController
+    lateinit var mainmenu: Unit
+    lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityHomeScreenBinding
     lateinit var HCadapter: HCadapter
+    private lateinit var db: FirebaseFirestore
     var NotesList = arrayListOf<HCdataclass>()
+    private lateinit var bottomNavigationView: BottomNavigationView
 
-    val db = Firebase.firestore
-    val collectionName = "Users data"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityHomeScreenBinding.inflate(layoutInflater)
+        binding= ActivityHomeScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        bottomNavigationView=findViewById(R.id.bottom_navigation)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-       NotesList.add(HCdataclass(title = "My title", description = "My description"))
-       NotesList.add(HCdataclass(title = "My Name", description = "My description"))
-        NotesList.add(HCdataclass(title = "My description", description = "My description"))
-        NotesList.add(HCdataclass(title = "hello", description = "My description"))
-        NotesList.add(HCdataclass(title = "branch", description = "My description"))
+        val navController=findNavController(R.id.nav_host_fragment_activity_bottom_nav)
 
-        HCadapter= HCadapter(NotesList,this)
-        binding.rcview.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        binding.rcview.adapter= HCadapter
-        HCadapter.notifyDataSetChanged()
-
-
-        binding.flbtn.setOnClickListener {
-            var dialog= Dialog(this)
-
-            dialog.setContentView(R.layout.flbbtn_dialog)
-
-            var mytext=dialog.findViewById<EditText>(R.id.input1)
-            var mytext2=dialog.findViewById<EditText>(R.id.input1)
-            var mytext3=dialog.findViewById<EditText>(R.id.input1)
-
-
-            dialog.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-            )
-            dialog.show()
-            var btnCancel=dialog.findViewById<Button>(R.id.ipbtn2)
-            var btnSave=dialog.findViewById<Button>(R.id.ipbtn1)
-
-            btnCancel.setOnClickListener {
-                NotesList.add(HCdataclass(title=mytext.text.toString()))
-                Toast.makeText(this@HomeScreen,"${mytext.text}", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
+        bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.nav_home->navController.navigate(R.id.nav_home)
+                R.id.nav_profile->navController.navigate(R.id.nav_profile)
+                R.id.nav_users->navController.navigate(R.id.nav_users)
+                R.id.nav_asanas->navController.navigate(R.id.nav_asanas)
             }
-
-            btnSave.setOnClickListener {
-                NotesList.add(HCdataclass(title=mytext.text.toString()))
-                Toast.makeText(this@HomeScreen,"${mytext.text}", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
+            true
         }
+
     }
 
-    override fun update(position: Int) {
-        Toast.makeText(this,"Update Clicked", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun delete(position: Int) {
-        Toast.makeText(this,"Delete Clicked", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
-    }
 }

@@ -1,9 +1,7 @@
 package com.o7.projectapp
 
 import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -32,20 +30,21 @@ class Signup : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.sin.setOnClickListener {
-            val fullName=binding.name.text.toString().trim()
-            var email = binding.email.text.toString().trim()
-            var password = binding.password.text.toString().trim()
+            val fullName = binding.name.text.toString().trim()
+            val email = binding.email.text.toString().trim()
+            val password = binding.password.text.toString().trim()
+
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task  ->
+                    .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
                             try {
-                                val userId=firebaseAuth.currentUser?.uid.toString().trim()
+                                val userId = firebaseAuth.currentUser?.uid.toString().trim()
 
                                 db.collection(collectionName).document(userId).set(categorylist(email = email,fullName,userId))
-                                    .addOnSuccessListener {
+                                    .addOnSuccessListener{
                                         Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
                                     }
                                     .addOnFailureListener {
@@ -74,8 +73,6 @@ class Signup : AppCompatActivity() {
             finish()
         }
 
-                    }
 
-
-                }
-
+    }
+}

@@ -1,7 +1,8 @@
 package com.o7.projectapp
 
 data class HCdataclass(
-   var name: String?=null,
-    var title: String?=null,
-    var description: String?=null,
+    var Username: String = "",
+    var Password: String = "",
+    var Email: String = "",
+    var docID: String? = null
 )

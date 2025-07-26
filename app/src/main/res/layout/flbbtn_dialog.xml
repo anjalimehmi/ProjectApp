@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg5">
 
 
     <EditText
         android:id="@+id/input1"
         android:layout_width="380dp"
-        android:layout_height="50dp"
-        android:hint="input1"
+        android:layout_height="70dp"
+        android:hint="Enter Username"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        android:textColorHint="#000000"
+        android:shadowColor="@color/black"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"/>
 
@@ -16,7 +21,11 @@
         android:id="@+id/input2"
         android:layout_width="380dp"
         android:layout_height="50dp"
-        android:hint="input2"
+        android:hint="Enter password"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        android:textColorHint="#000000"
+        android:shadowColor="@color/black"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_below="@id/input1"/>
@@ -25,26 +34,38 @@
         android:id="@+id/input3"
         android:layout_width="380dp"
         android:layout_height="50dp"
-        android:hint="input3"
+        android:hint="Enter email"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="15dp"
+        android:shadowColor="@color/black"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_below="@id/input2"/>
 
     <Button
         android:id="@+id/ipbtn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:text="save"
-        android:layout_marginLeft="10dp"
+        android:textColor="#173A18"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:backgroundTint="#C8DBB3"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/input3"/>
 
     <Button
         android:id="@+id/ipbtn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:text="cancel"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/ipbtn1"/>
+        android:textColor="#173A18"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:backgroundTint="#C8DBB3"
+        android:layout_below="@id/ipbtn1"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

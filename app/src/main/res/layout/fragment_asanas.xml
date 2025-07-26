@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".nav_fragments.Asanas">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Asanas"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:textColor="#003B73"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/flbtn_add_ygcategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="#BFD7ED"
+        android:backgroundTint="#003B73"
+        android:contentDescription="go to dialog"
+        android:src="@drawable/baseline_add_circle_24"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="30dp"
+        app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator"/>
+
+</FrameLayout>

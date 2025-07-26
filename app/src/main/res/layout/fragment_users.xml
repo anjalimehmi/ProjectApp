@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background2"
+    tools:context=".nav_fragments.Users">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Users"
+    android:textStyle="bold"
+    android:textSize="50sp"
+    android:textColor="#173A18"
+    android:layout_marginLeft="20sp"
+    android:layout_marginTop="20sp"
+    android:fontFamily="sans-serif-condensed"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rcview1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+<!--    </RelativeLayout>-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/flbtn_add_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="#C8DBB3"
+        android:backgroundTint="#173A18"
+        android:contentDescription="go to dialog"
+        android:src="@drawable/baseline_add_circle_24"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="30dp"
+        app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator"/>
+
+</FrameLayout>

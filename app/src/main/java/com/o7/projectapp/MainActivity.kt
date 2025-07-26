@@ -10,10 +10,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 
-class MainActivity :androidx.appcompat.app.AppCompatActivity() {
-    lateinit var navController: NavController
-    lateinit var mainmenu: Unit
-    lateinit var appBarConfiguration: AppBarConfiguration
+class MainActivity :AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,9 +21,7 @@ class MainActivity :androidx.appcompat.app.AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        navController=findNavController(R.id.nav_host_fragment_activity_bottom_nav)
-        appBarConfiguration= AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController,appBarConfiguration)
+
 
     }
 }

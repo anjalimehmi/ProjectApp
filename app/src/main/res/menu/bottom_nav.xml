@@ -10,15 +10,24 @@
 
 
     <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/outline_notifications_24"
-        android:title="Notification" />
+        android:id="@+id/nav_users"
+        android:icon="@drawable/baseline_users_24"
+        android:title="Users"/>
+
+
+
+    <item
+        android:id="@+id/nav_asanas"
+        android:icon="@drawable/baseline_asanas_24"
+        android:title="Asanas" />
 
 
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/outline_contacts_product_24"
         android:title="Profile"/>
+
+
 
 
 </menu>

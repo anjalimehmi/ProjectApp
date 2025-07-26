@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.o7.projectapp.databinding.ActivityLoginBinding
+import com.o7.projectapp.nav_fragments.Home
 import kotlin.toString
 
 class Login : AppCompatActivity() {
