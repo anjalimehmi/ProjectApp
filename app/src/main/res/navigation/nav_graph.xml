@@ -32,4 +32,5 @@
         android:name="com.o7.projectapp.nav_fragments.Exercise_detail"
         android:label="fragment_exercise_detail"
         tools:layout="@layout/fragment_exercise_detail" />
+
 </navigation>

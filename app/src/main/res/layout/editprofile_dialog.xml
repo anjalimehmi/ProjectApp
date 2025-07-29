@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_search_24"
+            />
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Username"
+            android:background="@drawable/spinner_design"
+            android:textColorHint="#80000000"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_search_24"
+            />
+
+        <TextView
+            android:id="@+id/edit2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Email"
+            android:gravity="left"
+            android:background="@drawable/spinner_design"
+            android:textColorHint="#80000000"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_search_24"
+            />
+
+        <EditText
+            android:id="@+id/edit3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Contact no."
+            android:background="@drawable/spinner_design"
+            android:textColorHint="#80000000"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_search_24"
+            />
+
+        <TextView
+            android:id="@+id/edit4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Gender"
+            android:background="@drawable/spinner_design"
+            android:textColorHint="#80000000"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_search_24"
+            />
+
+        <EditText
+            android:id="@+id/edit5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Age"
+            android:background="@drawable/spinner_design"
+            android:textColorHint="#80000000"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/svbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save" />
+
+        <Button
+            android:id="@+id/canbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+    </LinearLayout>
+</LinearLayout>

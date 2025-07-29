@@ -2,6 +2,7 @@ package com.o7.projectapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -29,21 +30,45 @@ class Signup : AppCompatActivity() {
         }
         firebaseAuth = FirebaseAuth.getInstance()
 
+
+        val genderArray = resources.getStringArray(R.array.gender)
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArray)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinner.adapter = spinnerAdapter
+
+        val ageArray = resources.getStringArray(R.array.Age)
+        val ageSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ageArray)
+        ageSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.ageSpinner.adapter = ageSpinnerAdapter
+
+
+
         binding.sin.setOnClickListener {
             val fullName = binding.name.text.toString().trim()
             val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
+            val gender=binding.spinner.selectedItem.toString().trim()
+            val age=binding.ageSpinner.selectedItem.toString().trim()
+            val contact=binding.contact.text.toString().trim()
 
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
+            if (email.isNotEmpty() && password.isNotEmpty() && gender!= "Select Gender" && age!="Select Age") {
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
                             try {
                                 val userId = firebaseAuth.currentUser?.uid.toString().trim()
+                                val user= categorylist(
+                                    fullName = fullName,
+                                    email = email,
+                                    contact = contact,
+                                    gender = gender,
+                                    age = age,
 
-                                db.collection(collectionName).document(userId).set(categorylist(email = email,fullName,userId))
+                                )
+
+                                db.collection(collectionName).document(userId).set(user)
                                     .addOnSuccessListener{
                                         Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
                                     }
