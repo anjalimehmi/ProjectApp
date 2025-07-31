@@ -3,14 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_home">
-
+    app:startDestination="@id/nav_placeHolder">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.o7.projectapp.nav_fragments.Home"
-        android:label="Home"
-        tools:layout="@layout/fragment_home"/>
+        android:id="@+id/nav_adminHome"
+        android:name="com.o7.projectapp.nav_fragments.AdminHome"
+        android:label="fragment_admin_home"
+        tools:layout="@layout/fragment_admin_home" />
+    <fragment
+        android:id="@+id/nav_userHome"
+        android:name="com.o7.projectapp.nav_fragments.UserHome"
+        android:label="fragment_user_home"
+        tools:layout="@layout/fragment_user_home" />
+
 
     <fragment
         android:id="@+id/nav_profile"
@@ -32,5 +37,11 @@
         android:name="com.o7.projectapp.nav_fragments.Exercise_detail"
         android:label="fragment_exercise_detail"
         tools:layout="@layout/fragment_exercise_detail" />
+    <fragment
+        android:id="@+id/nav_placeHolder"
+        android:name="com.o7.projectapp.nav_fragments.placeHolder"
+        android:label="fragment_place_holder"
+        tools:layout="@layout/fragment_place_holder" />
+
 
 </navigation>

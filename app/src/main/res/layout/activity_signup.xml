@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign up for new account"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:fontFamily="sans-serif-condensed"
         android:layout_marginTop="30dp"
         android:textStyle="bold"
@@ -110,11 +110,20 @@
         android:layout_below="@id/spinner"
         android:background="@drawable/spinner_design"/>
 
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/ageSpinner"
+        android:background="@drawable/spinner_design"/>
+
     <Button
         android:id="@+id/sin"
         android:layout_width="224dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ageSpinner"
+        android:layout_height="40dp"
+        android:layout_below="@id/typeSpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:backgroundTint="#173A18"
@@ -122,7 +131,7 @@
         android:textColor="#C8DBB3"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="30dp" />
+        android:textSize="10dp" />
 
 
     <TextView
@@ -137,7 +146,7 @@
         android:textStyle="bold"
         android:textColor="#173A18"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="30dp" />
+        android:textSize="10dp" />
 
 
     <TextView
@@ -156,7 +165,7 @@
     <Button
         android:id="@+id/here"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/already"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#C8DBB3"

@@ -6,7 +6,8 @@ data class categorylist(
     val contact: String="",
     val gender: String = "",
     val age: String="",
-    val userId: String = ""
+    val userId: String = "",
+    val userType: String=""
 
 
 

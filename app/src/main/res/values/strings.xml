@@ -17,6 +17,11 @@
         <item>45-50</item>
         <item>above 50</item>
     </string-array>
+    <string-array name="UserType">
+        <item>Selecet User Type</item>
+        <item>User</item>
+        <item>Admin</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
