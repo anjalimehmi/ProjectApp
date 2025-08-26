@@ -43,6 +43,9 @@ class Users : Fragment(), HCadapter.OnClick {
     val db = Firebase.firestore
     var collectionName = "Users"
     var itemList = arrayListOf<HCdataclass>()
+    private var currentUserType: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,17 +59,42 @@ class Users : Fragment(), HCadapter.OnClick {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentUsersBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
+        binding.flbtnAddUser.visibility = View.GONE
 
 
-        adapter = HCadapter(itemList, this)
+        val currentUserId = firebaseAuth.currentUser?.uid
+        if (currentUserId != null) {
+            db.collection(collectionName)
+                .document(currentUserId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        currentUserType = document.getString("userType")
+
+                        if (currentUserType.equals("admin", ignoreCase = true)) {
+                            binding.flbtnAddUser.visibility = View.VISIBLE
+                        } else {
+                            binding.flbtnAddUser.visibility = View.GONE
+                        }
+
+
+        adapter = HCadapter(itemList, this, currentUserType)
         binding.rcview.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rcview.adapter = adapter
-//        adapter.notifyDataSetChanged()
+                        loadUsers()
+                    }
+                }
+        }
+        binding.flbtnAddUser.setOnClickListener {
+            showAddUserDialog()
+        }
+        return binding.root
+    }
 
+    private fun loadUsers() {
         db.collection("Users")
             .get()
             .addOnSuccessListener { documents ->
@@ -78,76 +106,60 @@ class Users : Fragment(), HCadapter.OnClick {
                 }
                 adapter.notifyDataSetChanged()
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 Toast.makeText(requireContext(), "Failed to load users", Toast.LENGTH_SHORT).show()
             }
-
-        binding.flbtnAddUser.setOnClickListener {
-            var dialog = Dialog(requireContext())
-            dialog.setContentView(R.layout.flbbtn_dialog)
-
-
-            var Username = dialog.findViewById<EditText>(R.id.input1)
-            var password = dialog.findViewById<EditText>(R.id.input2)
-            var Email = dialog.findViewById<EditText>(R.id.input3)
-            var btnSave = dialog.findViewById<Button>(R.id.ipbtn1)
-            var btnCancel = dialog.findViewById<Button>(R.id.ipbtn2)
-
-
-
-            btnSave.setOnClickListener {
-                val ipuser = Username.text.toString().trim()
-                val ippassword = password.text.toString().trim()
-                val ipemail = Email.text.toString().trim()
-
-                if (ipuser.isNotEmpty() && ippassword.isNotEmpty() && ipemail.isNotEmpty()) {
-                    val newUser = HCdataclass(ipuser, ippassword, ipemail)
-
-                    db.collection("Users")
-                        .add(newUser)
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "Saved to Firestore",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            itemList.add(newUser)
-                            adapter.notifyItemInserted(itemList.size - 1)
-                            dialog.dismiss()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
-                        }
-                } else {
-                    Toast.makeText(requireContext(), "Please fill all details", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-//                itemList.add(HCdataclass(Username = mytext1.text.toString(),
-//                     Password = mytext2.text.toString(),
-//                    Email = mytext3.text.toString()))
-//                Toast.makeText(requireContext(),"yes", Toast.LENGTH_SHORT).show()
-//                dialog.dismiss()
-            }
-            btnCancel.setOnClickListener {
-//                itemList.add(HCdataclass(Username = mytext1.text.toString(),
-//                    Password = mytext2.text.toString(),
-//                    Email = mytext3.text.toString()))
-//                Toast.makeText(requireContext(),"no", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-            dialog.show()
-        }
-        return binding.root
     }
 
 
 
+    private fun showAddUserDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.flbbtn_dialog)
+
+        val Username = dialog.findViewById<EditText>(R.id.input1)
+        val password = dialog.findViewById<EditText>(R.id.input2)
+        val Email = dialog.findViewById<EditText>(R.id.input3)
+        val btnSave = dialog.findViewById<Button>(R.id.ipbtn1)
+        val btnCancel = dialog.findViewById<Button>(R.id.ipbtn2)
+        btnSave.setOnClickListener {
+            val ipuser = Username.text.toString().trim()
+            val ippassword = password.text.toString().trim()
+            val ipemail = Email.text.toString().trim()
+
+            if (ipuser.isNotEmpty() && ippassword.isNotEmpty() && ipemail.isNotEmpty()) {
+                val newUser = HCdataclass(ipuser, ippassword, ipemail)
+
+                db.collection(collectionName)
+                    .add(newUser)
+                    .addOnSuccessListener {docRef ->
+                        newUser.docID = docRef.id
+                        itemList.add(newUser)
+                        adapter.notifyItemInserted(itemList.size - 1)
+                        Toast.makeText(requireContext(), "Saved to Firestore", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(requireContext(), "Please fill all details", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
+
 
     override fun update(position: Int) {
+        if (currentUserType == "user") {
+            return
+        }
+
+
         val selectedUser = itemList[position]
-
-
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.updateusers_dialog)
 
@@ -196,6 +208,11 @@ class Users : Fragment(), HCadapter.OnClick {
 
 
     override fun delete(position: Int) {
+        if (currentUserType == "user") {
+//            Toast.makeText(requireContext(), "You don't have permission to delete", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         var dialog= Dialog(requireContext())
         dialog.setContentView(R.layout.deleteusers_dialog)
 

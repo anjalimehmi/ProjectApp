@@ -5,6 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.o7.projectapp.HCadapter
+import com.o7.projectapp.HCdataclass
 import com.o7.projectapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,6 +28,13 @@ class AdminHome : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: HCadapter
+    private val itemList = arrayListOf<HCdataclass>()
+
+    private val db = Firebase.firestore
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +48,36 @@ class AdminHome : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_admin_home, container, false)
+
+        recyclerView = view.findViewById(R.id.rcview3)
+        adapter = HCadapter(itemList, null, "admin")
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+        FirestoreUsers()
+
+        return view
     }
+    private fun FirestoreUsers() {
+        db.collection("Users")
+            .get()
+            .addOnSuccessListener { documents ->
+                itemList.clear()
+                for (document in documents) {
+                    val user = document.toObject(HCdataclass::class.java)
+                    itemList.add(user)
+                }
+                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to load users", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
+
 
     companion object {
         /**

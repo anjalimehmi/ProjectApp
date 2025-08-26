@@ -3,13 +3,310 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".nav_fragments.UserHome">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="USERHOME"
-        android:gravity="center"/>
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/hl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello name"
+        android:textSize="40sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="8dp"/>
+
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Records"
+            android:backgroundTint="@color/black"
+            android:layout_toRightOf="@id/hl"
+            android:drawableRight="@drawable/coin"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/wel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to YOGA VEDA"
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/hl"/>
+
+
+        <TextView
+            android:id="@+id/chellenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Challenges"
+            android:layout_below="@+id/wel"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/horScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:layout_below="@+id/chellenge"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+           >
+
+            <LinearLayout
+                android:id="@+id/sv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd1"
+                    android:layout_width="250dp"
+                    android:layout_height="170dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Task 1"
+                        android:textSize="20dp"
+                        android:background="#BD9292"/>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd2"
+                    android:layout_width="250dp"
+                    android:layout_height="170dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Task 2"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd3"
+                    android:layout_width="250dp"
+                    android:layout_height="170dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Task 3"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd4"
+                    android:layout_width="250dp"
+                    android:layout_height="170dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Task 4"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd5"
+                    android:layout_width="250dp"
+                    android:layout_height="170dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Task 5"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/dotsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/horScrollView"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp">
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/yogas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yoga Categories"
+            android:layout_below="@+id/dotsLayout"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            />
+
+
+
+    <HorizontalScrollView
+            android:id="@+id/horScrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/yogas"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp">
+
+            <LinearLayout
+                android:id="@+id/sv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd6"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Category 1"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd7"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Category 2"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd8"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Category 3"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd9"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Category 4"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd10"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Category 5"
+                        android:textSize="20sp"
+                        android:background="#AD8C8C"/>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/dotsLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/horScrollView2"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp">
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>

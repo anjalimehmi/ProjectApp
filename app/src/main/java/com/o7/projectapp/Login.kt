@@ -43,6 +43,7 @@ class Login : AppCompatActivity() {
                                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
 
                                         val intent = Intent(this, HomeScreen::class.java)
+                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                         intent.putExtra("userType", userType)
                                         startActivity(intent)
                                         finish()
@@ -65,6 +66,7 @@ class Login : AppCompatActivity() {
 
         binding.signUpp.setOnClickListener {
             var intent= Intent(this, Signup::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }

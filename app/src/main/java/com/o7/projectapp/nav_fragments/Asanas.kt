@@ -13,8 +13,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.o7.projectapp.Asanas_adapter
 import com.o7.projectapp.Asanas_dataclass
@@ -36,9 +38,13 @@ class Asanas : Fragment(), Asanas_adapter.OnClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var currentUserType= "user"
     lateinit var binding: FragmentAsanasBinding
     lateinit var adapter: Asanas_adapter
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var fab: View
+    private lateinit var recyclerView: RecyclerView
     val db= Firebase.firestore
     var collectionName="Asanas"
     var itemList=arrayListOf<Asanas_dataclass>()
@@ -55,153 +61,194 @@ class Asanas : Fragment(), Asanas_adapter.OnClick {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAsanasBinding.inflate(inflater, container, false)
+        val view = inflater.inflate(R.layout.fragment_asanas, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
-        adapter = Asanas_adapter(itemList, this)
-        binding.rcview2.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rcview2.adapter = adapter
-//        adapter.notifyDataSetChanged()
+        fab = view.findViewById(R.id.flbtn_add_ygcategory)
+        fab.visibility = View.GONE
+        recyclerView = view.findViewById(R.id.rcview2)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        db.collection("Asanas")
+        val uid = firebaseAuth.currentUser?.uid
+        if (uid != null) {
+            firestore.collection("Users").document(uid).get()
+                .addOnSuccessListener { doc ->
+                    currentUserType = doc.getString("userType") ?: "user"
+
+
+                    if (currentUserType == "user") {
+                        fab.visibility = View.GONE
+                    } else {
+                        fab.visibility = View.VISIBLE
+                        fab.setOnClickListener {
+                            showAddAsanaDialog()
+                        }
+                    }
+                    loadAsanas()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Error loading user type", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        return view
+    }
+
+
+
+
+    private fun loadAsanas() {
+        db.collection(collectionName)
             .get()
             .addOnSuccessListener { documents ->
                 itemList.clear()
-                for (document in documents){
-                    val user=document.toObject(Asanas_dataclass::class.java)
-                    user.docID = document.id
-                    itemList.add(user)
+                for (document in documents) {
+                    val asana = document.toObject(Asanas_dataclass::class.java)
+                    asana.docID = document.id
+                    itemList.add(asana)
                 }
-                adapter.notifyDataSetChanged()
+               adapter = Asanas_adapter(itemList, this, currentUserType)
+                recyclerView.adapter=adapter
+
+//                adapter.notifyItemChanged(position)
+//                adapter.notifyItemRemoved(position)
             }
-            .addOnFailureListener { exception ->
-                Toast.makeText(requireContext(), "Failed to load users", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to load data", Toast.LENGTH_SHORT).show()
             }
-
-        binding.flbtnAddYgcategory.setOnClickListener {
-            var dialog = Dialog(requireContext())
-            dialog.setContentView(R.layout.asanafabbtn_dialog)
-
-            var AsanaName = dialog.findViewById<EditText>(R.id.edttext1)
-//            var Purpose = dialog.findViewById<EditText>(R.id.edttext2)
-//            var Duration = dialog.findViewById<EditText>(R.id.edttext3)
-//            var Benefits = dialog.findViewById<EditText>(R.id.edttext4)
-            var Save = dialog.findViewById<Button>(R.id.asSave_btn)
-            var Cancel = dialog.findViewById<Button>(R.id.asCancel_btn)
-
-
-            Save.setOnClickListener {
-                val AsaneInfo = AsanaName.text.toString().trim()
-//                val PurposeInfo = Purpose.text.toString().trim()
-//                val DurationInfo = Duration.text.toString().trim()
-//                val BenefitsInfo = Benefits.text.toString().trim()
-
-
-                if (AsaneInfo.isNotEmpty() ) {
-                    val newAsana =
-                        Asanas_dataclass(AsaneInfo)
-
-                    db.collection("Asanas")
-                        .add(newAsana)
-                        .addOnSuccessListener {documentReference ->
-                            newAsana.docID = documentReference.id
-                            Toast.makeText(requireContext(), "Saved to Firestore", Toast.LENGTH_SHORT).show()
-                            itemList.add(newAsana)
-                            adapter.notifyItemInserted(itemList.size - 1)
-                            dialog.dismiss()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
-                        }
-                } else {
-                    Toast.makeText(requireContext(), "Fill Information", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-            Cancel.setOnClickListener {
-                dialog.dismiss()
-            }
-            dialog.show()
-        }
-        return binding.root
     }
 
-    override fun Edit(position: Int) {
-        val CategoryItem = itemList[position]
-
+    private fun showAddAsanaDialog() {
         val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.editcategory_dialog)
+        dialog.setContentView(R.layout.asanafabbtn_dialog)
 
-        val edtCategory = dialog.findViewById<EditText>(R.id.edtText2)
-        val Savebtn = dialog.findViewById<Button>(R.id.SSave)
-        val CancelBtn = dialog.findViewById<Button>(R.id.CCancel)
+        val edtName = dialog.findViewById<EditText>(R.id.edttext1)
+        val edtDescription = dialog.findViewById<EditText>(R.id.edttext2)
+        val btnSave = dialog.findViewById<Button>(R.id.asSave_btn)
+        val btnCancel = dialog.findViewById<Button>(R.id.asCancel_btn)
 
-        edtCategory.setText(CategoryItem.name)
+        btnSave.setOnClickListener {
+            val name = edtName.text.toString().trim()
+            val description = edtDescription.text.toString().trim()
 
-        Savebtn.setOnClickListener {
-            val newCategoryname = edtCategory.text.toString().trim()
-
-
-            if (newCategoryname.isEmpty()) {
-                Toast.makeText(requireContext(), "Username cannot be empty", Toast.LENGTH_SHORT)
-                    .show()
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "Please enter a category name", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val docID = CategoryItem.docID
-            if (docID != null) {
-                db.collection(collectionName).document(docID)
-                    .update("Username", newCategoryname)
-                    .addOnSuccessListener {
-                        CategoryItem.name = newCategoryname
-                        adapter.notifyItemChanged(position)
-                        Toast.makeText(requireContext(), "Username updated", Toast.LENGTH_SHORT)
-                            .show()
-                        dialog.dismiss()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Failed to update", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-            } else {
-                Toast.makeText(requireContext(), "Document ID missing", Toast.LENGTH_SHORT).show()
+            if (description.isEmpty()) {
+                Toast.makeText(requireContext(), "Please enter a description", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            val newAsana = hashMapOf(
+                "name" to name,
+                "description" to description
+            )
+
+            db.collection(collectionName)
+                .add(newAsana)
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Asana added", Toast.LENGTH_SHORT).show()
+                    loadAsanas() // Refresh list
+                    dialog.dismiss()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to add Asana", Toast.LENGTH_SHORT).show()
+                }
         }
-        CancelBtn.setOnClickListener {
+        btnCancel.setOnClickListener {
             dialog.dismiss()
         }
+
         dialog.show()
     }
 
+
+
+    override fun Edit(position: Int) {
+        if (currentUserType == "admin") {
+            val item = itemList[position]
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.editcategory_dialog)
+
+            val edtName = dialog.findViewById<EditText>(R.id.edtText2)
+            val saveBtn = dialog.findViewById<Button>(R.id.SSave)
+            val cancelBtn = dialog.findViewById<Button>(R.id.CCancel)
+
+            edtName.setText(item.name)
+
+            saveBtn.setOnClickListener {
+                val newName = edtName.text.toString().trim()
+                if (newName.isEmpty()) {
+                    Toast.makeText(requireContext(), "Name cannot be empty", Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                }
+
+                item.docID?.let { docID ->
+                    db.collection(collectionName).document(docID)
+                        .update("name", newName)
+                        .addOnSuccessListener {
+                            item.name = newName
+                            adapter.notifyItemChanged(position)
+                            Toast.makeText(requireContext(), "Updated", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Update failed", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                }
+            }
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
+    }
     override fun Delete(position: Int) {
-        var dialog= Dialog(requireContext())
-        dialog.setContentView(R.layout.deleteusers_dialog)
+        if (currentUserType == "Admin") {
+            val item = itemList[position]
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.deleteusers_dialog)
 
-        val SureDelete=dialog.findViewById<TextView>(R.id.SureText)
-        val btnyes=dialog.findViewById<Button>(R.id.Yes)
-        val btnNo=dialog.findViewById<Button>(R.id.No)
+            val sureDelete = dialog.findViewById<TextView>(R.id.SureText)
+            val yesBtn = dialog.findViewById<Button>(R.id.Yes)
+            val noBtn = dialog.findViewById<Button>(R.id.No)
 
-        SureDelete.text="Are you sure you want to delete this user?"
+            sureDelete.text = "Are you sure you want to delete this asana?"
 
-        btnyes.setOnClickListener {
-            itemList.removeAt(position)
-            adapter.notifyItemRemoved(position)
-            Toast.makeText(requireContext(), "Category removed", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+            yesBtn.setOnClickListener {
+                item.docID?.let { docID ->
+                    db.collection(collectionName).document(docID)
+                        .delete()
+                        .addOnSuccessListener {
+                            itemList.removeAt(position)
+                            adapter.notifyItemRemoved(position)
+                            Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Delete failed", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                }
+            }
+            noBtn.setOnClickListener { dialog.dismiss() }
+            dialog.show()
         }
-        btnNo.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
     }
-
-
-
     override fun onItemClick(position: Int) {
-            findNavController().navigate(R.id.nav_exercise_detail)
+        val clickedAsana = itemList[position]
+        val bundle = Bundle().apply {
+            putString("asanaName", clickedAsana.name)
+            putString("asanaDescription", clickedAsana.description)
         }
-
-
-
+        findNavController().navigate(R.id.nav_exercise_detail, bundle)
+}
 
     companion object {
         /**
@@ -214,11 +261,12 @@ class Asanas : Fragment(), Asanas_adapter.OnClick {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String, param2: String,  currentUserType: String) =
             Asanas().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
+                    putString("currentUserType", currentUserType)
                 }
             }
     }

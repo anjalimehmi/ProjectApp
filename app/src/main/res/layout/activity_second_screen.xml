@@ -5,53 +5,52 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#000000"
     tools:context=".Second_Screen">
 
     <TextView
+        android:id="@+id/y1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Y"
-        android:layout_marginTop="10dp"
-        android:textSize="150sp"
+        android:text="YOGA"
+        android:layout_marginTop="30dp"
+        android:textSize="48sp"
         android:gravity="center"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="35dp"
-        android:textColor="#173A18"
-        android:textStyle="bold" />
+        android:textColor="#9B26B6"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/begin"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="oga"-->
+<!--        android:layout_marginTop="55dp"-->
+<!--        android:textSize="60sp"-->
+<!--        android:gravity="right"-->
+<!--        android:layout_marginRight="75dp"-->
+<!--        android:textColor="#173A18"-->
+<!--        android:textStyle="bold" />-->
 
     <TextView
-        android:id="@+id/begin"
+        android:id="@+id/y2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="oga"
-        android:layout_marginTop="55dp"
-        android:textSize="60sp"
-        android:gravity="right"
-        android:layout_marginRight="75dp"
-        android:textColor="#173A18"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/begin"
-        android:layout_marginTop="-14dp"
-        android:layout_marginRight="15dp"
-        android:gravity="right"
+        android:layout_below="@id/y1"
+        android:gravity="center"
         android:text="for all levels"
-        android:textColor="#173A18"
-        android:textSize="35sp"
+        android:textColor="#d6b4fc"
+        android:textSize="34sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="441dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="191dp"
-        android:layout_marginEnd="0dp"
+        android:layout_height="341dp"
+        android:layout_below="@+id/y2"
+        android:layout_marginTop="80dp"
         android:src="@drawable/pose2" />
 
     <Button
@@ -62,11 +61,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="0dp"
-       android:backgroundTint="#173A18"
+       android:backgroundTint="#d6b4fc"
         android:gravity="right"
         android:fontFamily="sans-serif-condensed"
         android:text="Let's start>>"
-        android:textColor="#C8DBB3"
+        android:textColor="#9B26B6"
         android:textSize="40dp"
         android:textStyle="bold" />
 

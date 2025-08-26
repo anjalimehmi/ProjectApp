@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.o7.projectapp.Login
 import com.o7.projectapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,6 +43,8 @@ class profile : Fragment() {
     private lateinit var textGender: TextView
     private lateinit var textAge: TextView
     private lateinit var btnEditProfile: Button
+    private lateinit var themeButton: ImageButton
+    private lateinit var addAnotherProfile: Button
 
 
 
@@ -67,11 +72,21 @@ class profile : Fragment() {
         textGender=view.findViewById(R.id.ed4)
         textAge=view.findViewById(R.id.ed5)
         btnEditProfile=view.findViewById(R.id.btnEditProfile)
+        themeButton = view.findViewById(R.id.theme)
+        addAnotherProfile = view.findViewById(R.id.addProfile)
 
         loadProfileData()
 
         btnEditProfile.setOnClickListener {
             showEditProfileDialog()
+        }
+        themeButton.setOnClickListener {
+            toggleTheme()
+        }
+        addAnotherProfile.setOnClickListener {
+            val intent = Intent(requireContext(), Login::class.java)
+            startActivity(intent)
+//            requireActivity().finish()
         }
 
         return view
@@ -155,6 +170,18 @@ class profile : Fragment() {
 
         dialog.show()
     }
+    private fun toggleTheme() {
+        val currentMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+
+        val newMode = when (currentMode) {
+            android.content.res.Configuration.UI_MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO
+            android.content.res.Configuration.UI_MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+
+        AppCompatDelegate.setDefaultNightMode(newMode)
+    }
+
 
 
 

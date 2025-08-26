@@ -1,114 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".FirstScreen">
+    android:background="#000000"
+    tools:context=".FirstScreen"
+    android:padding="24dp">
+
 
     <TextView
-        android:id="@+id/begin"
-        android:layout_width="match_parent"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Begin your"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="50sp"
-        android:textColor="#173A18"
+        android:text="Begin Your"
+        android:textColor="#d6b4fc"
+        android:textSize="34sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/yoga"
-        android:layout_width="113dp"
-        android:layout_height="183dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
-        android:text="Y"
-        android:textSize="180sp"
-        android:textStyle="bold"
-        android:textColor="#173A18"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/yoga1"
-        android:layout_width="126dp"
-        android:layout_height="89dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="2dp"
-        android:gravity="top"
-        android:text="oga"
-        android:textSize="70sp"
-        android:textStyle="bold"
-        android:textColor="#173A18"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/begin" />
-
-    <TextView
-        android:id="@+id/jrny"
-        android:layout_width="180dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="84dp"
-        android:text="journey"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:textColor="#173A18"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/begin" />
-
-    <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/yogaTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:text="Here"
-        android:textSize="50sp"
+        android:text="Yoga Journey"
+        android:textColor="#9B26B6"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:textColor="#173A18"
+        app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yoga" />
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="307dp"
-        android:layout_height="385dp"
-        android:layout_marginStart="140dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pose1"
-        tools:layout_editor_absoluteY="242dp"
-        app:layout_constraintTop_toBottomOf="@id/jrny" />
-
-    <Button
-        android:id="@+id/nextsecondsc"
-        android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#173A18"
-        android:gravity="right"
-        android:text="Next>>"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="#C8DBB3"
-        android:textSize="45dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 
+    <ImageView
+        android:id="@+id/yogaImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/logo"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/yogaTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.45"
+        android:layout_marginTop="16dp" />
 
-<!--    <pl.droidsonroids.gif.GifImageView-->
-<!--    android:layout_width="300dp"-->
-<!--    android:layout_height="200dp"-->
-<!--    android:src="@drawable/imggg"-->
-<!--    android:background="@color/black"-->
-<!--    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--    app:layout_constraintStart_toStartOf="parent" />-->
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Explore calm, clarity, and strength"
+        android:textColor="#d6b4fc"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/yogaImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+
+    <Button
+        android:id="@+id/nextsecondsc"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Get Started"
+        android:textSize="18sp"
+        android:textColor="#A225BF"
+        android:backgroundTint="#d6b4fc"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

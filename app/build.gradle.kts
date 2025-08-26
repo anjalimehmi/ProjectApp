@@ -52,9 +52,9 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
-//    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.18")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-//    implementation("com.github.bumptech.glide:glide:4.8.0")
-//    annotationProcessor("com.github.bumptech.glide:compiler:4.8.0")
+
+
+
 }
